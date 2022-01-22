@@ -15,7 +15,8 @@ int main()
 	printf("%d \n", nArray2[1][2]);
 
 	int memSize = sizeof(nArray);
-	memset(nArray, 0, sizeof(int));
+	// memset(nArray, 0, sizeof(int) * memSize); //error
+	memset(nArray, 0, sizeof(int) * 12);
 
 	printf("%d \n", nArray[1][2]);
 }
