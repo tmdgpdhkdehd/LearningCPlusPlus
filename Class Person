@@ -1,0 +1,88 @@
+#include <iostream>
+
+using namespace std;
+
+class Player {
+private:
+    char* pStrName;
+    int level;
+    int hp;
+
+    static int playerCount;
+
+public:
+    Player(char* strName, int lv, int HP)
+    {
+        pStrName = new char[20];
+        strcpy(pStrName, strName);
+
+        level = lv;
+        hp = HP;
+
+        playerCount++;
+    }
+    virtual ~Player()
+    {
+        if (pStrName)
+            delete pStrName;
+
+        playerCount--;
+    }
+
+    char* GetName() { return pStrName; };
+
+    int GetLevel() { return level; }
+    bool SetLevel(int newLevel)
+    {
+        if (newLevel > 0 && newLevel <= 300)
+        {
+            level = newLevel;
+            return true;
+        }
+    }
+    void LevelUp() { level++; }
+    void IncHP(int amount) { hp += amount; }
+
+    static int getPlayerCount();
+};
+
+int Player::playerCount = 0; // static 초기화 반드시 .. 
+int Player::getPlayerCount() 
+{ 
+    return playerCount; 
+}
+
+
+class Person {
+private:
+    int m_age;
+    char m_name[20];
+
+public:
+    Person(char* name, int age);
+    virtual ~Person();
+
+    void setName(char* name) { strcpy(m_name, name); };
+    char* getName() { return m_name; }
+    void setAge(int age) { m_age = age; }
+    int getAge() { return m_age; }
+
+    void printPersonInfo() { cout << m_name << '\n' << m_age << '\n'; }
+};
+
+Person::Person(char* name, int age)
+{
+    memset(m_name, NULL, 20);
+    setName(name);
+    setAge(age);
+}
+Person::~Person()
+{
+
+}
+
+int main(void) 
+{
+    Person *ps = new Person((char*)"gildong", 20);
+    ps->printPersonInfo();
+}
